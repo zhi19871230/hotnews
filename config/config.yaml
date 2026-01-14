@@ -46,7 +46,7 @@ aggregation:
 
 # 通知配置（可选，按需启用）
 notification:
-  enable_notification: false # 如需推送，改为true
+  enable_notification: true # 如需推送，改为true
   # 企业微信Webhook（替换为自己的key）
   wework_webhook_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=your-wework-key"
   # 飞书Webhook（替换为自己的key）
