@@ -50,7 +50,7 @@ notification:
   # 企业微信Webhook（替换为自己的key）
   wework_webhook_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=your-wework-key"
   # 飞书Webhook（替换为自己的key）
-  feishu_webhook_url: "https://open.feishu.cn/open-apis/bot/v2/hook/your-feishu-key"
+  feishu_webhook_url: "https://www.feishu.cn/flow/api/trigger-webhook/fefbc441486c617aabe6fc154f670980"
   # 钉钉Webhook（替换为自己的key）
   dingtalk_webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=your-dingtalk-key"
 
