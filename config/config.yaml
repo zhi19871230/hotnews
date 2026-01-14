@@ -44,15 +44,73 @@ aggregation:
   enable_aggregation: false  # 关闭跨平台内容聚合
   enable_deduplication: false # 关闭重复内容去重
 
-# 通知配置（可选，按需启用）
 notification:
-  enable_notification: true # 如需推送，改为true
-  # 企业微信Webhook（替换为自己的key）
-  wework_webhook_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=your-wework-key"
-  # 飞书Webhook（替换为自己的key）
-  feishu_webhook_url: "https://www.feishu.cn/flow/api/trigger-webhook/fefbc441486c617aabe6fc154f670980"
-  # 钉钉Webhook（替换为自己的key）
-  dingtalk_webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=your-dingtalk-key"
+  enabled: true                       # 是否启用通知功能
+
+  # 🕐 推送时间窗口控制（可选功能）
+  # 用途：限制推送的时间范围，避免非工作时间打扰
+  # 适用场景：
+  #   - 只想在工作日白天接收推送（如 09:00-18:00）
+  #   - 希望在晚上固定时间收到汇总（如 20:00-22:00）
+  # 注意：GitHub Actions 执行时间不稳定，时间范围建议至少留足 2 小时
+  #       如果想要精准的定时推送，建议使用 Docker 部署在个人服务器上
+  push_window:
+    enabled: false                    # 是否启用推送时间窗口控制
+    start: "20:00"                    # 开始时间（北京时间）
+    end: "22:00"                      # 结束时间（北京时间）
+    once_per_day: true                # true=窗口内只推送一次，false=窗口内每次执行都推送
+
+  # 📋 独立展示区配置（可选功能）
+  # 用途：将指定平台的完整热榜/RSS 单独展示，不受关键词过滤影响
+  # 适用场景：
+  #   - 想完整查看某个平台的热榜排名
+  #   - RSS 源内容较少，希望全部展示而非只显示关键词匹配的
+  # 注意：同一新闻可能同时出现在关键词匹配区和独立展示区
+  standalone_display:
+    enabled: true                    # 是否启用独立展示区
+    platforms: []                     # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
+    rss_feeds: []                     # RSS 源 ID 列表（如 ["hacker-news"]）
+    max_items: 20                     # 每个源最多展示条数（0=不限制）
+
+  # 推送渠道配置
+  channels:
+    feishu:
+      webhook_url: ""                 # 飞书机器人 webhook URL
+
+    dingtalk:
+      webhook_url: ""                 # 钉钉机器人 webhook URL
+
+    wework:
+      webhook_url: ""                 # 企业微信机器人 webhook URL
+      msg_type: "markdown"            # 消息类型：markdown(群机器人) | text(个人微信应用)
+
+    telegram:
+      bot_token: ""                   # Telegram Bot Token
+      chat_id: ""                     # Telegram Chat ID
+
+    email:
+      from: ""                        # 发件人邮箱地址
+      password: ""                    # 发件人邮箱密码或授权码
+      to: ""                          # 收件人邮箱，多个用逗号分隔
+      smtp_server: ""                 # SMTP 服务器（可选，留空自动识别）
+      smtp_port: ""                   # SMTP 端口（可选，留空自动识别）
+
+    ntfy:
+      server_url: "https://ntfy.sh"   # ntfy 服务器地址（可改为自托管）
+      topic: ""                       # ntfy 主题名称
+      token: ""                       # ntfy 访问令牌（可选，用于私有主题）
+
+    bark:
+      url: ""                         # Bark 推送 URL（格式：https://api.day.app/your_device_key）
+
+    slack:
+      webhook_url: ""                 # Slack Incoming Webhook URL
+
+    generic_webhook:
+      webhook_url: ""                 # 通用 Webhook URL（支持 Discord、Matrix、IFTTT 等）
+      payload_template: ""            # JSON 模板，支持 {title} 和 {content} 占位符
+                                      # 示例：{"content": "{content}"}
+                                      # 留空则使用默认格式：{"title": "{title}", "content": "{content}"}
 
 # 输出配置
 output:
