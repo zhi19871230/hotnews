@@ -26,14 +26,19 @@ app:
 platforms:
   - id: "toutiao"
     name: "今日头条"
+    top_n: 10
   - id: "baidu"
     name: "百度热搜"
+    top_n: 10
   - id: "wallstreetcn-hot"
     name: "华尔街见闻"
+    top_n: 10
   - id: "thepaper"
     name: "澎湃新闻"
+    top_n: 10
   - id: "bilibili-hot-search"
     name: "bilibili 热搜"
+    top_n: 10
   - id: "cls-hot"
     name: "财联社热门"
   - id: "ifeng"
@@ -44,8 +49,10 @@ platforms:
     name: "微博"
   - id: "douyin"
     name: "抖音"
+    top_n: 10
   - id: "zhihu"
     name: "知乎"
+    top_n: 10
 
 
 # ===============================================================
@@ -342,9 +349,9 @@ advanced:
   # 排序权重（用于重新排序不同平台的热搜）
   # 合起来等于 1
   weight:
-    rank: 0.6                         # 排名权重
-    frequency: 0.3                    # 频次权重
-    hotness: 0.1                      # 热度权重
+    rank: 1.0                         # 排名权重
+    frequency: 0                    # 频次权重
+    hotness: 0                     # 热度权重
 
   # 多账号限制
   max_accounts_per_channel: 3         # 每个渠道最大账号数量
